@@ -56,11 +56,14 @@ class Subscription(models.Model):
         related_name='subscriptions',
         on_delete=models.CASCADE
     )
-    created_at = models.DateTimeField(
+    start_at = models.DateTimeField(
         default=timezone.now, 
-        verbose_name='Дата публикации'
+        verbose_name='Дата подписки'
     )
-    is_paid = models.BooleanField(default=False) 
+    end_at = models.DateTimeField(
+        default=timezone.now, 
+        verbose_name='Дата окончания подписки'
+    )
 
     class Meta:
         verbose_name = 'Подписка'

@@ -16,6 +16,9 @@ class Course(models.Model):
     start_date = models.DateTimeField(
         verbose_name='Дата и время начала курса'
     )
+    end_date = models.DateTimeField(
+        verbose_name='Дата и время окончания курса'
+    )
     price = models.IntegerField(
         default=0,
         verbose_name='Цена'
@@ -50,6 +53,9 @@ class Lesson(models.Model):
     link = models.URLField(
         max_length=250,
         verbose_name='Ссылка',
+    )
+    available = models.BooleanField(
+        default=False
     )
     
     class Meta:
