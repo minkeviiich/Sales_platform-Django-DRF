@@ -1,12 +1,13 @@
 from django.db import models
-
+from django.utils import timezone
 
 class Course(models.Model):
     """Модель продукта - курса."""
-
-    author = models.CharField(
-        max_length=250,
-        verbose_name='Автор',
+    
+    author = models.ForeignKey(
+        'users.CustomUser',  
+        on_delete=models.DO_NOTHING, 
+        verbose_name='Автор'
     )
     title = models.CharField(
         max_length=250,
@@ -17,9 +18,15 @@ class Course(models.Model):
         auto_now_add=False,
         verbose_name='Дата и время начала курса'
     )
-
-    # TODO
-
+    price = models.FloatField(
+        default=0.0,
+        verbose_name='Цена'
+    )
+    created_at = models.DateTimeField(
+        default=timezone.now, 
+        verbose_name='Дата публикации'
+    )
+   
     class Meta:
         verbose_name = 'Курс'
         verbose_name_plural = 'Курсы'
@@ -31,18 +38,22 @@ class Course(models.Model):
 
 class Lesson(models.Model):
     """Модель урока."""
-
+    
+    course = models.ForeignKey(
+        Course, 
+        on_delete=models.CASCADE, 
+        verbose_name='Курс',
+        related_name='lessons'
+    )
     title = models.CharField(
         max_length=250,
-        verbose_name='Название',
+        verbose_name='Название урока',
     )
     link = models.URLField(
         max_length=250,
         verbose_name='Ссылка',
     )
-
-    # TODO
-
+    
     class Meta:
         verbose_name = 'Урок'
         verbose_name_plural = 'Уроки'
@@ -54,8 +65,20 @@ class Lesson(models.Model):
 
 class Group(models.Model):
     """Модель группы."""
-
-    # TODO
+    
+    course = models.ForeignKey(
+        Course, 
+        on_delete=models.CASCADE, 
+        verbose_name='Курс'
+    )
+    title = models.CharField(
+        max_length=100, 
+        verbose_name='Название группы'
+    )
+    students = models.ManyToManyField(
+        'users.CustomUser', 
+        verbose_name='Студенты'
+    )
 
     class Meta:
         verbose_name = 'Группа'

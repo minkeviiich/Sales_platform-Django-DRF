@@ -53,6 +53,7 @@ class GroupSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Group
+        fields = '__all__'
 
 
 class CreateGroupSerializer(serializers.ModelSerializer):
@@ -84,6 +85,7 @@ class CourseSerializer(serializers.ModelSerializer):
     students_count = serializers.SerializerMethodField(read_only=True)
     groups_filled_percent = serializers.SerializerMethodField(read_only=True)
     demand_course_percent = serializers.SerializerMethodField(read_only=True)
+    start_date = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S")
 
     def get_lessons_count(self, obj):
         """Количество уроков в курсе."""
@@ -115,10 +117,12 @@ class CourseSerializer(serializers.ModelSerializer):
             'students_count',
             'groups_filled_percent',
         )
-
+    def get_lessons_count(self, obj):
+        return obj.lessons.count()
 
 class CreateCourseSerializer(serializers.ModelSerializer):
     """Создание курсов."""
 
     class Meta:
         model = Course
+        fields = '__all__'

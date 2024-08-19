@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from courses.models import Course
 
 class CustomUser(AbstractUser):
     """Кастомная модель пользователя - студента."""
@@ -24,12 +25,16 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.get_full_name()
-
-
+    
 class Balance(models.Model):
     """Модель баланса пользователя."""
 
-    # TODO
+    user = models.OneToOneField(
+        CustomUser, 
+        on_delete=models.CASCADE,
+        related_name='баланс'
+    )
+    balance = models.PositiveIntegerField(default=1000)
 
     class Meta:
         verbose_name = 'Баланс'
@@ -40,7 +45,20 @@ class Balance(models.Model):
 class Subscription(models.Model):
     """Модель подписки пользователя на курс."""
 
-    # TODO
+    course = models.ForeignKey(
+        Course, 
+        related_name='subscriptions',
+        on_delete=models.CASCADE
+    )
+    user = models.ForeignKey(
+        CustomUser, 
+        related_name='subscriptions',
+        on_delete=models.CASCADE
+    )
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
+    is_paid = models.BooleanField(default=False) 
 
     class Meta:
         verbose_name = 'Подписка'
