@@ -14,12 +14,10 @@ class Course(models.Model):
         verbose_name='Название',
     )
     start_date = models.DateTimeField(
-        auto_now=False,
-        auto_now_add=False,
         verbose_name='Дата и время начала курса'
     )
-    price = models.FloatField(
-        default=0.0,
+    price = models.IntegerField(
+        default=0,
         verbose_name='Цена'
     )
     created_at = models.DateTimeField(

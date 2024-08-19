@@ -3,7 +3,7 @@ from rest_framework import status, viewsets, permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from api.v1.permissions import IsStudentOrIsAdmin, ReadOnlyOrIsAdmin, make_payment
+from api.v1.permissions import IsStudentOrIsAdmin, ReadOnlyOrIsAdmin
 from api.v1.serializers.course_serializer import (CourseSerializer,
                                                   CreateCourseSerializer,
                                                   CreateGroupSerializer,
@@ -74,5 +74,7 @@ class CourseViewSet(viewsets.ModelViewSet):
 
         #TODO
 
-        data = data
-        return Response(data=data, status=status.HTTP_400_BAD_REQUEST)
+        return Response(
+            data=data,
+            status=status.HTTP_400_BAD_REQUEST
+        )

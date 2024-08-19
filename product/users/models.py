@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.utils import timezone
 from courses.models import Course
 
 class CustomUser(AbstractUser):
@@ -32,7 +33,7 @@ class Balance(models.Model):
     user = models.OneToOneField(
         CustomUser, 
         on_delete=models.CASCADE,
-        related_name='баланс'
+        related_name='balance'
     )
     balance = models.PositiveIntegerField(default=1000)
 
@@ -56,7 +57,8 @@ class Subscription(models.Model):
         on_delete=models.CASCADE
     )
     created_at = models.DateTimeField(
-        auto_now_add=True
+        default=timezone.now, 
+        verbose_name='Дата публикации'
     )
     is_paid = models.BooleanField(default=False) 
 
@@ -64,4 +66,9 @@ class Subscription(models.Model):
         verbose_name = 'Подписка'
         verbose_name_plural = 'Подписки'
         ordering = ('-id',)
+        constraints = [
+            models.UniqueConstraint(fields=['user',  'course'], name='unique_subscription')
+        ]
+    
+    
 
