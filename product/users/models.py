@@ -62,11 +62,11 @@ class Subscription(models.Model):
         related_name='subscriptions',
         on_delete=models.CASCADE
     )
-    start_date = models.DateTimeField(
+    start_at = models.DateTimeField(
         auto_now_add=True,
         verbose_name='Дата подписки'
     )
-    end_date = models.DateTimeField(
+    end_at = models.DateTimeField(
         verbose_name='Дата окончания подписки',
         null=True,
         blank=True

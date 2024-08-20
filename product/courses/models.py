@@ -27,10 +27,7 @@ class Course(models.Model):
         default=0,
         verbose_name='Цена'
     )
-    created_at = models.DateTimeField(
-        default=timezone.now, 
-        verbose_name='Дата публикации'
-    )
+
    
     class Meta:
         verbose_name = 'Курс'
