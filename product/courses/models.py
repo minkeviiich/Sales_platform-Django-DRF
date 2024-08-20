@@ -27,15 +27,8 @@ class Course(models.Model):
         default=0,
         verbose_name='Цена'
     )
-    
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-        self.create_groups()
 
-    def create_groups(self):
-        for i in range(1, 11):
-            Group.objects.create(course=self, title=f'Группа {i}')
-   
+
     class Meta:
         verbose_name = 'Курс'
         verbose_name_plural = 'Курсы'

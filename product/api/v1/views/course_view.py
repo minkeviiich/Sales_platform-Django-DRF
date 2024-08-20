@@ -110,8 +110,5 @@ class CourseViewSet(viewsets.ModelViewSet):
         
         # Найти группу с наименьшим количеством студентов
         group = min(groups, key=lambda g: g.students.count())
-        
-        with transaction.atomic():
-            group.students.add(student)
-            group.save()
-
+        group.students.add(student)
+        group.save()
