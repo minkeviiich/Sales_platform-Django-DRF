@@ -19,7 +19,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
 class BalanceViewSet(viewsets.ViewSet):
     permission_classes = [permissions.IsAuthenticated]
-
+    
     @action(
         detail=False, 
         methods=['get']
@@ -28,7 +28,8 @@ class BalanceViewSet(viewsets.ViewSet):
         user = request.user
         balance = user.balance.balance
         return Response({'balance': balance}, status=status.HTTP_200_OK)
-    
+
+    # TODO
     @action(
         detail=True, 
         methods=['get'], 
@@ -40,7 +41,7 @@ class BalanceViewSet(viewsets.ViewSet):
             return Response({'balance': balance.balance}, status=status.HTTP_200_OK)
         except Balance.DoesNotExist:
             return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
-    
+    # TODO
     @extend_schema(
         request=BalanceSerializer,
         responses={200: BalanceSerializer}
