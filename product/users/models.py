@@ -1,5 +1,8 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.utils import timezone
+from courses.models import Course
+from django.core.exceptions import ValidationError
 
 class CustomUser(AbstractUser):
     """Кастомная модель пользователя - студента."""
@@ -24,12 +27,21 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.get_full_name()
-
-
+    
 class Balance(models.Model):
     """Модель баланса пользователя."""
 
-    # TODO
+    user = models.OneToOneField(
+        CustomUser, 
+        on_delete=models.CASCADE,
+        related_name='balance'
+    )
+    balance = models.PositiveIntegerField(default=1000)
+
+    def save(self, *args, **kwargs):
+        if self.balance < 0:
+            raise ValidationError('Баланс не может быть ниже 0.')
+        super().save(*args, **kwargs)
 
     class Meta:
         verbose_name = 'Баланс'
@@ -40,10 +52,33 @@ class Balance(models.Model):
 class Subscription(models.Model):
     """Модель подписки пользователя на курс."""
 
-    # TODO
+    course = models.ForeignKey(
+        Course, 
+        related_name='subscriptions',
+        on_delete=models.CASCADE
+    )
+    user = models.ForeignKey(
+        CustomUser, 
+        related_name='subscriptions',
+        on_delete=models.CASCADE
+    )
+    start_at = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name='Дата подписки'
+    )
+    end_at = models.DateTimeField(
+        verbose_name='Дата окончания подписки',
+        null=True,
+        blank=True
+    )
 
     class Meta:
         verbose_name = 'Подписка'
         verbose_name_plural = 'Подписки'
         ordering = ('-id',)
+        constraints = [
+            models.UniqueConstraint(fields=['user',  'course'], name='unique_subscription')
+        ]
+    
+    
 

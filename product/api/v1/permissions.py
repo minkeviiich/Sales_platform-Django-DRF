@@ -3,18 +3,23 @@ from users.models import Subscription
 
 
 def make_payment(request):
-    # TODO
     pass
 
 
 class IsStudentOrIsAdmin(BasePermission):
     def has_permission(self, request, view):
-        # TODO
-        pass
+        # Проверка, аутентифицирован ли пользователь
+        if not request.user.is_authenticated:
+            return False
+        # Проверка, является ли пользователь администратором или студентом
+        return request.user.is_staff or not request.user.is_staff
 
     def has_object_permission(self, request, view, obj):
-        # TODO
-        pass
+        # Проверка, аутентифицирован ли пользователь
+        if not request.user.is_authenticated:
+            return False
+        # Проверка, является ли пользователь администратором или студентом
+        return request.user.is_staff or not request.user.is_staff
 
 
 class ReadOnlyOrIsAdmin(BasePermission):
