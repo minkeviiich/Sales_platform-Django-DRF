@@ -3,7 +3,6 @@ from users.models import Subscription
 
 
 def make_payment(request):
-    # TODO
     pass
 
 

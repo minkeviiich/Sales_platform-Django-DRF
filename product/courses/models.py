@@ -14,10 +14,14 @@ class Course(models.Model):
         verbose_name='Название',
     )
     start_date = models.DateTimeField(
-        verbose_name='Дата и время начала курса'
+        verbose_name='Дата и время начала курса',
+        null=False,
+        blank=False
     )
     end_date = models.DateTimeField(
-        verbose_name='Дата и время окончания курса'
+        verbose_name='Дата и время окончания курса',
+        null=False,
+        blank=False
     )
     price = models.IntegerField(
         default=0,
@@ -54,10 +58,8 @@ class Lesson(models.Model):
         max_length=250,
         verbose_name='Ссылка',
     )
-    available = models.BooleanField(
-        default=False
-    )
-    
+
+
     class Meta:
         verbose_name = 'Урок'
         verbose_name_plural = 'Уроки'

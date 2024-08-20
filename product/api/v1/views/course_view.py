@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404
-from rest_framework import status, viewsets, permissions
+from rest_framework import viewsets, permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
@@ -71,10 +71,5 @@ class CourseViewSet(viewsets.ModelViewSet):
     
     def pay(self, request, pk):
         """Покупка доступа к курсу (подписка на курс)."""
-
-        #TODO
-
-        return Response(
-            data=data,
-            status=status.HTTP_400_BAD_REQUEST
-        )
+        
+        pass

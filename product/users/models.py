@@ -2,6 +2,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils import timezone
 from courses.models import Course
+from django.core.exceptions import ValidationError
 
 class CustomUser(AbstractUser):
     """Кастомная модель пользователя - студента."""
@@ -37,6 +38,11 @@ class Balance(models.Model):
     )
     balance = models.PositiveIntegerField(default=1000)
 
+    def save(self, *args, **kwargs):
+        if self.balance < 0:
+            raise ValidationError('Баланс не может быть ниже 0.')
+        super().save(*args, **kwargs)
+
     class Meta:
         verbose_name = 'Баланс'
         verbose_name_plural = 'Балансы'
@@ -56,13 +62,14 @@ class Subscription(models.Model):
         related_name='subscriptions',
         on_delete=models.CASCADE
     )
-    start_at = models.DateTimeField(
-        default=timezone.now, 
+    start_date = models.DateTimeField(
+        auto_now_add=True,
         verbose_name='Дата подписки'
     )
-    end_at = models.DateTimeField(
-        default=timezone.now, 
-        verbose_name='Дата окончания подписки'
+    end_date = models.DateTimeField(
+        verbose_name='Дата окончания подписки',
+        null=True,
+        blank=True
     )
 
     class Meta:
