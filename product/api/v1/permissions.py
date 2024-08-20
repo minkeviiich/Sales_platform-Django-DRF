@@ -1,9 +1,16 @@
 from rest_framework.permissions import BasePermission, SAFE_METHODS
 from users.models import Subscription
+from django.core.exceptions import ValidationError
 
 
-def make_payment(request):
-    pass
+def make_payment(user, course):
+    balance = user.balance
+    if balance.balance < course.price:
+        raise ValidationError('Недостаточно бонусов для покупки курса.')
+    
+    # Проверяем, есть ли уже подписка на курс
+    if Subscription.objects.filter(user=user, course=course).exists():
+        raise ValidationError('Вы уже подписаны на этот курс.')
 
 
 class IsStudentOrIsAdmin(BasePermission):
