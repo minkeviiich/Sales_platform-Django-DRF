@@ -28,6 +28,12 @@ class CustomUser(AbstractUser):
     def __str__(self):
         return self.get_full_name()
     
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        if not hasattr(self, 'balance'):
+            Balance.objects.create(user=self)
+    
+    
 class Balance(models.Model):
     """Модель баланса пользователя."""
 

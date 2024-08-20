@@ -28,7 +28,7 @@ class Course(models.Model):
         verbose_name='Цена'
     )
 
-   
+
     class Meta:
         verbose_name = 'Курс'
         verbose_name_plural = 'Курсы'
@@ -72,7 +72,8 @@ class Group(models.Model):
     course = models.ForeignKey(
         Course, 
         on_delete=models.CASCADE, 
-        verbose_name='Курс'
+        verbose_name='Курс',
+        related_name='groups'
     )
     title = models.CharField(
         max_length=100, 

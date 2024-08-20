@@ -7,6 +7,9 @@ from users.models import Subscription
 User = get_user_model()
 
 
+class BalanceSerializer(serializers.Serializer):
+    amount = serializers.IntegerField()
+
 class CustomUserSerializer(UserSerializer):
     """Сериализатор пользователей."""
 
@@ -15,13 +18,13 @@ class CustomUserSerializer(UserSerializer):
         fields = '__all__'
 
 
-class SubscriptionSerializer(serializers.ModelSerializer):
-    """Сериализатор подписки."""
-
-    # TODO
-
-    class Meta:
-        model = Subscription
-        fields = (
-            # TODO
-        )
+#class SubscriptionSerializer(serializers.ModelSerializer):
+#    """Сериализатор подписки."""
+#
+#   # TODO
+#
+#    class Meta:
+#        model = Subscription
+#        fields = (
+#            # TODO
+#        )
