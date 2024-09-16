@@ -9,6 +9,14 @@
 - Подписка на курсы: Студенты могут подписываться на курсы, после чего им открывается доступ к урокам.
 - Распределение студентов по группам.
 
+### __Технологии__
+* [Python 3.10.12](https://www.python.org/doc/)
+* [Django 4.2.10](https://docs.djangoproject.com/en/4.2/)
+* [Django REST Framework  3.14.0](https://www.django-rest-framework.org/)
+* [Djoser  2.2.0](https://djoser.readthedocs.io/en/latest/getting_started.html)
+* [PostgreSQL 14](https://www.postgresql.org/docs/14/index.html)
+* [Docker-Compose](https://docs.docker.com/compose/release-notes/)
+
 ### Связи таблиц
 Ознакомиться можно тут: https://drive.google.com/file/d/16eVCytLDfPVJETPjmCf_sZfbmrZRwJ_L/view?usp=sharing
 
@@ -76,11 +84,3 @@ docker ps -a
 * Swagger: http://127.0.0.1:8000/api/v1/swagger/
 * ReDoc: http://127.0.0.1:8000/api/v1/redoc/
 
-
-### __Технологии__
-* [Python 3.10.12](https://www.python.org/doc/)
-* [Django 4.2.10](https://docs.djangoproject.com/en/4.2/)
-* [Django REST Framework  3.14.0](https://www.django-rest-framework.org/)
-* [Djoser  2.2.0](https://djoser.readthedocs.io/en/latest/getting_started.html)
-* [PostgreSQL 14](https://www.postgresql.org/docs/14/index.html)
-* [Docker-Compose](https://docs.docker.com/compose/release-notes/)
