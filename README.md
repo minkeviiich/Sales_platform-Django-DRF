@@ -23,7 +23,7 @@
 ## Установка на локальном компьютере
 ### 1. Клонируйте репозиторий:
 ```
-git clone git@github.com:minkeviiich/test-backend.git
+git clone git@github.com:minkeviiich/Sales_platform-Django-DRF.git
 ```
 ### 2. Сборка Docker-образа: 
 - Убедитесь, что Docker и Docker Compose установлены на вашем компьютере. Вы можете проверить это, выполнив команды:
